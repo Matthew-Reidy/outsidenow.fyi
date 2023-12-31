@@ -12,12 +12,13 @@ async function getSports(){
       cache: 'no-cache'
     })
     var data  = await req.json();
-    console.log(data)
+    
     return data
 
 }
 
 export default async function sportsCatergory() {
+
     var data = await getSports()
     
     return (

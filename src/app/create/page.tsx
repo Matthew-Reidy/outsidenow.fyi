@@ -9,12 +9,7 @@ export default function CreateEvent() {
 
     async function postEvent(event: React.FormEvent<HTMLFormElement>): Promise<void>{
         event.preventDefault();
-        const url: string = ""
-        
-        var res = await Axios.post(url)
-        
-        
-        
+
     }
 
     function imageUpload(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -24,21 +19,21 @@ export default function CreateEvent() {
         }
       }
     
-      function handleImgChange(): void {
-        if (images) {
-          const pdfUploadBody: Array<{}> = [{}];
-    
-          Array.from(images).forEach((file: File) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-    
-            reader.onload = () => {
-              console.log('File name:', file.name);
-              console.log('Base64 data:', reader.result);
-            };
-          });
-        }
+    function handleImgChange(): void {
+      if (images) {
+        const pdfUploadBody: Array<{}> = [{}];
+  
+        Array.from(images).forEach((file: File) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+  
+          reader.onload = () => {
+            console.log('File name:', file.name);
+            console.log('Base64 data:', reader.result);
+          };
+        });
       }
+    }
 
 
     return(
@@ -56,10 +51,6 @@ export default function CreateEvent() {
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Start date and time</label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="datetime-local" onChange={(e) =>{}} />
-                    </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">End date and time</label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="datetime-local" onChange={(e) => {}} />
                     </div>
                     <div className="mb-4">
                         <input type="file" id="avatar" accept="image/png, image/jpeg" multiple onChange={(e)=>imageUpload(e)}></input>

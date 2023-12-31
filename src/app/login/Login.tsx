@@ -10,7 +10,7 @@ export default function Login(){
  
     async function sendLogin(event: any) {
         
-        const url: string = `${baseurl}dev/create/login`
+        const url: string = `${baseurl.dev}dev/create/login`
     
         const data: object = {
             username : username,

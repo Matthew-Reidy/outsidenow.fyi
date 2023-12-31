@@ -30,8 +30,8 @@ export default function Home() {
             </Link>
           </li>
           <li className="border-4 rounded-lg p-4 hover:bg-blue-200">
-            <Link href="catalog/arts" className="text-blue-600 font-semibold">
-              Arts
+            <Link href="catalog/gardening" className="text-blue-600 font-semibold">
+              Gardening
             </Link>
           </li>
         </ul>
