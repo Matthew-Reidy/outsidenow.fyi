@@ -1,18 +1,18 @@
 import json
 import boto3
-import ddbqueries
+from ddbqueries import dbqueries
 from botocore.exceptions import ClientError
 
 def lambda_handler(event, context):
     dbSecrets = get_secret()
     
     if event['path'] == "/getevents":
-        findEvents = ddbqueries.dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
+        findEvents = dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
         events = findEvents.getEventByType()
         return response_body(200, events)
     
     if event['path'] == "/eventdetails":
-        eventById = ddbqueries.dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
+        eventById = dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
         event = eventById.getEventById()
         return response_body(200, event)
     
@@ -48,3 +48,5 @@ def get_secret():
     # Decrypts secret using the associated KMS key.
     secret = get_secret_value_response['SecretString']
     return secret
+
+

@@ -1,16 +1,25 @@
 import psycopg2.pool as pgpool
 from psycopg2.extras import  DictCursor
 import boto3
+from enum import Enum
+
+#Enum for event types
+class eventOptions(Enum):
+    MUSIC = "Music",
+    SPORTS = "Sports",
+    COMEDY = "",
+    GARDENING = ""
+
 
 
 class dbqueries:
     
     __pool = None
     __params: int = None
-    __eventBody :dict = None
+    __eventBody : eventOptions = None
 
 
-    def __init__(self, eventBody: dict, dbSecrets: dict, params: int) -> None:
+    def __init__(self, eventBody: eventOptions, dbSecrets: dict, params: int) -> None:
         self.__pool = pgpool.SimpleConnectionPool(
                                                   minconn= 1,
                                                   maxconn= 5,
