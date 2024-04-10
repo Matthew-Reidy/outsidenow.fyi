@@ -29,6 +29,7 @@ export default function RootLayout({
               </Link>
 
           </div>
+         
           <div className="w-1/2 p-4 flex justify-end items-end space-x-4">
               <div className="border-4 border-gray-400 hover:border-gray-500 border-solid bg-gray-400 hover:bg-gray-500 rounded w-24 h-12 ">
                 <Link href="/create" className="flex items-center justify-center h-full hover:text-white">

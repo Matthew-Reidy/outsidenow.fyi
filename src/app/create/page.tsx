@@ -7,20 +7,28 @@ export default function CreateEvent() {
   const [eventName, setEventName] = useState<string>("");
   const [description, setDescription] = useState<string>("")
   const [images, setImages] = useState<FileList | null>(null);
-
+  const [dateTime, setDateTime] = useState("")
     function postEvent(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         if (images?.length === undefined){
           alert("Must have atleast one image to upload!")
         }else{
 
-        
+          const payload = {
+            name: eventName,
+            description: description,
+            dateTime : dateTime,
+            pdfs: prepareUploadBody()
+          }
+          
+          console.log(payload)
+
           fetch("https://pathway/to/upload",{
             method:"POST",
             headers:{
               "content-type":"application/json"
             },
-            body:JSON.stringify(prepareUploadBody())
+            body:JSON.stringify(payload)
           })
         }
 
@@ -44,11 +52,9 @@ export default function CreateEvent() {
   
           reader.onload = () => {
             pdfUploadBody.push({"filename": file.name, "blob" : reader.result})
-            console.log('File name:', file.name);
-            console.log('Base64 data:', reader.result);
+
           };
         });
-
         return pdfUploadBody
       }
       
@@ -69,7 +75,7 @@ export default function CreateEvent() {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Start date and time</label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="datetime-local" onChange={(e) =>{}} />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="datetime-local" onChange={(e) =>{setDateTime(e.target.value)}} />
                     </div>
                     <div className="mb-4">
                         <input type="file" id="avatar" accept="image/png, image/jpeg" multiple onChange={(e)=>imageUpload(e)}></input>
