@@ -1,8 +1,9 @@
 import React from 'react'
 
 async function getEventByID(id: number){
-  var req = await fetch(`https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev//eventdetails?eventid=${1}`, {
-    method: "GET"
+  var req = await fetch(`https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/eventdetails?eventid=${id}`, {
+    method: "GET",
+    cache: 'no-cache'
   })
   var data = await req.json()
 
@@ -10,11 +11,11 @@ async function getEventByID(id: number){
 }
 
 export default async function sportEventPage({params}:any){
-  var data = await getEventByID(params.id)
-
+  var {address, locname,  state_name } = await getEventByID(params.id)
+  
   return(
     <div className="bg-gray-100">
-
+      <p>{`${address}, ${locname} ${state_name}`}</p>
     </div>
   )
 }

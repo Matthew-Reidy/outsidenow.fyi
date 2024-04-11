@@ -1,10 +1,21 @@
 import React from 'react'
 
-export default async function musicEventPage(){
+async function getEventByID(id: number){
+  var req = await fetch(`https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/eventdetails?eventid=${id}`, {
+    method: "GET",
+    cache: 'no-cache'
+  })
+  var data = await req.json()
+
+  return data
+}
+
+export default async function musicEventPage({params}:any){
+  var {address, locname,  state_name } = await getEventByID(params.id)
   
   return(
     <div className="bg-gray-100">
-        <h1>comedy goes here</h1>
+      <p>{`${address}, ${locname} ${state_name}`}</p>
     </div>
   )
 }
