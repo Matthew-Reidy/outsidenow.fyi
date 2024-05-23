@@ -37,9 +37,7 @@ export default function RootLayout({
                 </Link>
               </div>
               <div className="border-4 border-gray-400 hover:border-gray-500 border-solid bg-gray-400 hover:bg-gray-500 rounded w-24 h-12">
-                <Link href="/login" className="flex items-center justify-center h-full hover:text-white">
-                  Login
-                </Link>
+                <a className="flex items-center justify-center h-full" href='https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=6uqkjma20rgv9lcmvkar8in06t&redirect_uri=http://localhost:3000'>Login</a>
               </div>
           </div>
         </div>
