@@ -43,7 +43,7 @@ export default function CreateEvent() {
     
     function prepareUploadBody(): Array<{}> | undefined {
 
-      if (images) {
+      if (images !== null) {
         const pdfUploadBody: Array<{}> = [];
   
         Array.from(images).forEach((file: File) => {
