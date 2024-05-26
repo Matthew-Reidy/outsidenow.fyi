@@ -1,5 +1,6 @@
 import json
-import psycopg2 as pgpool
+import psycopg2.pool as pgpool
+
 import boto3
 
 def lambda_handler(event, context):
@@ -7,24 +8,38 @@ def lambda_handler(event, context):
     secret = get_secret()
 
     if event["triggerSource"] == "PostConfirmation_ConfirmSignUp":
-        enrollUser(event)
+        enrollUser(event, secret)
 
 
 def enrollUser(event: dict, secret: dict) -> None:
 
-    conn = psycopg2.connect("")
+    pool = createPool(secret)
+
+    conn = pool.getconn()
 
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO users() VALUES (%s, %s)", (event["userName"], event["request"]["userAttributes"]["email"]))
+    cursor.execute("INSERT INTO users( username, email ) VALUES (%s, %s)", (event["userName"], event["request"]["userAttributes"]["email"]))
+
 
 
     conn.commit()
 
     cursor.close()
 
-    conn.close()
+    pool.putconn(conn)
 
+
+def createPool(dbSecrets: dict) -> SimpleConnectionPool:
+   return pgpool.SimpleConnectionPool(
+                                minconn= 1,
+                                maxconn= 5,
+                                database=dbSecrets["database"],
+                                host=dbSecrets["host"],
+                                user=dbSecrets["username"],
+                                password=dbSecrets["password"],
+                                port=dbSecrets["port"]
+                                )
 
 def get_secret():
 

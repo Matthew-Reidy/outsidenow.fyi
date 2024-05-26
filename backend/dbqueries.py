@@ -1,5 +1,5 @@
 import psycopg2.pool as pgpool
-import enum 
+
 from psycopg2.extras import  DictCursor
 
 
