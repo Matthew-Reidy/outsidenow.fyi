@@ -2,8 +2,7 @@ import React from 'react'
 
 async function getEventByID(id: number){
   var req = await fetch(`https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/eventdetails?eventid=${id}`, {
-    method: "GET",
-    cache: 'no-cache'
+    method: "GET"
   })
   var data = await req.json()
 

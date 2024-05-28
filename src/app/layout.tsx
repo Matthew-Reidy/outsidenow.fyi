@@ -17,6 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
+let signedIn : boolean = false
+
   return (
     <html lang="en">
       <body>
@@ -29,16 +31,20 @@ export default function RootLayout({
               </Link>
 
           </div>
-         
+
           <div className="w-1/2 p-4 flex justify-end items-end space-x-4">
               <div className="border-4 border-gray-400 hover:border-gray-500 border-solid bg-gray-400 hover:bg-gray-500 rounded w-24 h-12 ">
                 <Link href="/create" className="flex items-center justify-center h-full hover:text-white">
                   Create!
                 </Link>
               </div>
-              <div className="border-4 border-gray-400 hover:border-gray-500 border-solid bg-gray-400 hover:bg-gray-500 rounded w-24 h-12">
-                <a className="flex items-center justify-center h-full" href='https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=6uqkjma20rgv9lcmvkar8in06t&redirect_uri=http://localhost:3000'>Login</a>
-              </div>
+              {
+                signedIn ? <p>Account</p> 
+                :
+                <div className="border-4 border-gray-400 hover:border-gray-500 border-solid bg-gray-400 hover:bg-gray-500 rounded w-24 h-12">
+                  <a className="flex items-center justify-center h-full" href='https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=6uqkjma20rgv9lcmvkar8in06t&redirect_uri=http://localhost:3000'>Login</a>
+                </div>
+              }
           </div>
         </div>
         {children}
