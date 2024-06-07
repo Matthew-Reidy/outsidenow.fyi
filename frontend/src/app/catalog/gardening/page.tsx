@@ -17,19 +17,17 @@ async function getGardeningEvents(){
 export default async function gardeningCatergory(){
 
     const data = await getGardeningEvents()
-
+    
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center pt-10">
-            <div className="flex justify-center items-start mt-4">
                 <h2 className="text-4xl font-bold text-gray-800">Gardening events in your area</h2>
-                <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <ul className="flex justify-center items-start mt-4">
                     {
                         data?.map((data : any)=>{
                            return <GardeningTile key={data.eventid} props={data}/>
                         })
                     }
                 </ul>
-            </div>
         </div>
     )
 }
