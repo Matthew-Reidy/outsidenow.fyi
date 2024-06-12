@@ -81,6 +81,25 @@ class dbqueries:
             print(error)
             return None
         
+    def getCitiesAndCatergories(self):
+        conn = self.__pool.getconn()
+        
+        try:
+            with conn.cursor(cursor_factory=DictCursor) as cursor :
+
+                cursor.execute("select locid,locname from locations")
+                locres = cursor.fetchall()
+                cursor.execute("select * from event_catergory")
+                catres = cursor.fetchall()
+
+            self.__pool.putconn(conn)
+
+            return {"locations":[dict(row) for row in locres], "catergories": [dict(row) for row in catres]}
+        
+        except ProgrammingError as error:
+            print(error)
+            return None
+
     def deleteEvent():
         pass
     
@@ -111,7 +130,7 @@ class backendActions(dbqueries):
         
 
     def removeFromS3(self, imageName)-> None:
-
+        
         try:
             pass
         except Exception as e:
@@ -121,8 +140,13 @@ class backendActions(dbqueries):
         
         match self.eventBody["path"]:
             case "/getevents":
+               
                return dbqueries.getEventByType(self)
+            
             case "/eventdetails":
+
                 return dbqueries.getEventById(self)
+            
             case "/getcitiesandcatergories":
-                pass
+
+                return dbqueries.getCitiesAndCatergories(self)

@@ -15,11 +15,14 @@ def lambda_handler(event, context):
         if event['path'] == "/eventdetails":
             events = backendActions(event, dbSecrets).getData()
             return response_body(200, events)
+            
+        if event['path'] == "/getcitiesandcatergories":
+            events = backendActions(event, dbSecrets).getData()
+            return response_body(200, events)
         
     if event["httpMethod"] == "POST" or event["httpMethod"] == "PUT"  :
         pass
     
-    return response_body(200, "hello world!")
 
 def response_body(statusCode, body):
     return {
