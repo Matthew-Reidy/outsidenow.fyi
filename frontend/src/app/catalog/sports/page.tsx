@@ -1,13 +1,13 @@
 import Axios from 'axios'
 import Link from 'next/link';
-import { baseurl } from '@/components/constants';
+import { BASE_URL } from '@/components/constants';
 
 
 
 async function getSports(){
 
   
-    var req = await fetch("https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/getevents?eventType=Sports",{
+    var req = await fetch(`${BASE_URL}/getevents?eventType=Sports`,{
       method: "GET",
       cache: 'no-cache'
     })

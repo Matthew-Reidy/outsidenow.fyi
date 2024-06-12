@@ -1,10 +1,10 @@
 import React from 'react'
 import MusicTile from './MusicTile';
-
+import { BASE_URL } from '@/components/constants';
 async function getMusic(){
 
   
-  var req = await fetch("https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/getevents?eventType=Music",{
+  var req = await fetch(`${BASE_URL}/getevents?eventType=Music`,{
     method: "GET",
     cache: 'no-cache'
   })

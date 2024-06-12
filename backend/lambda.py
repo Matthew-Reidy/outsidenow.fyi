@@ -1,20 +1,23 @@
 import json
 import boto3
-from dbqueries import dbqueries
+from dbqueries import backendActions
 from botocore.exceptions import ClientError
 
 def lambda_handler(event, context):
-    dbSecrets = get_secret()
-
-    if event["path"] == "/getevents":
-        findEvents = dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
-        events = findEvents.getEventByType()
-        return response_body(200, events)
     
-    if event['path'] == "/eventdetails":
-        eventById = dbqueries(dbSecrets=dbSecrets, params=event["queryStringParameters"])
-        event = eventById.getEventById()
-        return response_body(200, event)
+    dbSecrets = get_secret()
+    if event["httpMethod"] == "GET":
+        if event["path"] == "/getevents":
+           
+            events = backendActions(event, dbSecrets).getData()
+            return response_body(200, events)
+        
+        if event['path'] == "/eventdetails":
+            events = backendActions(event, dbSecrets).getData()
+            return response_body(200, events)
+        
+    if event["httpMethod"] == "POST" or event["httpMethod"] == "PUT"  :
+        pass
     
     return response_body(200, "hello world!")
 
