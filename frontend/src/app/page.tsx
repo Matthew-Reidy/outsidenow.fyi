@@ -14,7 +14,7 @@ export default function Home() {
       </div>
       <div className="flex justify-center items-start mt-4">
         <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="catalog/music" className="text-blue-600 font-semibold">
+          <Link href="catalog/music" className="text-blue-600 font-semibold" >
             <li className="border-4 rounded-lg p-4 hover:bg-blue-200">
               Music
             </li>

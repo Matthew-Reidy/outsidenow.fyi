@@ -20,16 +20,17 @@ export default async function MusicCatergory(){
   
   return(
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center pt-10">
-      <div className="flex justify-center items-start mt-4">
-        <h2 className="text-4xl font-bold text-gray-800">Music events in your area</h2>
-          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <h2 className="text-4xl font-bold text-gray-800">Gardening events in your area</h2>
+      <ul className="flex justify-center items-start mt-4">`
+
           {
-              data?.map((data : any)=>{
+             data?.map((data : any)=>{
                   return <MusicTile key={data.eventid} props={data}/>
               })
           }
+          
           </ul>
-      </div>
     </div>
+
   )
 }

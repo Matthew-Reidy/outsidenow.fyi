@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import Link from 'next/link';
 import { BASE_URL } from '@/components/constants';
 
@@ -12,7 +11,7 @@ async function getSports(){
       cache: 'no-cache'
     })
     var data  = await req.json();
-    
+   
     return data
 
 }

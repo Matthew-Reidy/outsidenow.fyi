@@ -1,9 +1,10 @@
+import { BASE_URL } from "@/components/constants"
 import GardeningTile from "./GardeningTitle"
 
 
 async function getGardeningEvents(){
 
-    var req = await fetch("https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/getevents?eventType=Gardening",{
+    var req = await fetch(`${BASE_URL}/getevents?eventType=Gardening`,{
         method:"GET",
         cache:"no-cache"
     })

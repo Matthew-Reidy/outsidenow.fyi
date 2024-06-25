@@ -1,7 +1,8 @@
+import { BASE_URL } from '@/components/constants'
 import React from 'react'
 
 async function getEventByID(id: number){
-  var req = await fetch(`https://m14j005p8j.execute-api.us-west-1.amazonaws.com/dev/eventdetails?eventid=${id}`, {
+  var req = await fetch(`${BASE_URL}/eventdetails?eventid=${id}`, {
     method: "GET"
   })
   var data = await req.json()
