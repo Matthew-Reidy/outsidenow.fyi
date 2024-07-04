@@ -18,8 +18,8 @@ export default function CreateEvent() {
 
       let req =  await fetch(`${BASE_URL}/getcitiesandcatergories`,{
         method: "GET",
-        cache: 'no-cache'}
-      );
+        cache: 'no-cache'
+      });
 
       let data  =  await req.json();
       console.log(data)
