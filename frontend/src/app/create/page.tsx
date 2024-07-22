@@ -44,7 +44,7 @@ export default function CreateEvent() {
         let pdfs = prepareUploadBody()
 
         const payload : object = {
-          uid: localStorage.getItem("uid"),
+          uid: localStorage.getItem("UID"),
           name: eventName,
           description: description,
           dateTime : dateTime,

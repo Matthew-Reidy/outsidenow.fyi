@@ -9,7 +9,7 @@ export function Signin(){
 
     useEffect(() => {
         console.log("checking login")
-        if (!localStorage.getItem("UID") && !localStorage.getItem("accessToken")){
+        if (!localStorage.getItem("UID") && !localStorage.getItem("accessToken") && !localStorage.getItem("refreshToken")){
             identityRoutine()
             
             
@@ -28,9 +28,27 @@ export function Signin(){
     let code = regex.exec(String(url))
 
     if (code != null){
-      console.log(code)
+      getToken(code[0])
     }
     
+  }
+  
+  async function getToken(code: any){
+
+    let req = await fetch("https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/token",{
+      method: "POST",
+      body: JSON.stringify({"code":code})
+    })
+
+    let response = await req.json()
+
+    if(!response.ok){
+      throw new Error(`token retrieval failed!\n${response.text}`)
+    }
+
+    localStorage.setItem("UID",response.uid)
+    localStorage.setItem("accessToken",response.accessToken)
+    localStorage.setItem("refreshToken",response.refreshToken)
   }
 
     return(
