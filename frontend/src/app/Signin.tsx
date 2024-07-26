@@ -28,6 +28,7 @@ export function Signin(){
     let code = regex.exec(String(url))
 
     if (code != null){
+      console.log(typeof code[0], code[0])
       getToken(code[0])
     }
     
@@ -35,20 +36,52 @@ export function Signin(){
   
   async function getToken(code: any){
 
+    const header = new Headers();
+    header.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "authorization_code");
+    urlencoded.append("client_id", "m19g69r0847adtpadms8vpje5");
+    urlencoded.append("code", code);
+    urlencoded.append("redirect_uri", "http://localhost:3000");
+    urlencoded.append("client_secret", "1vk8l6islhu8cpbao4ojr138pj6rf3e6h2gire3tlcbnpoood1mm");
+
     let req = await fetch("https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/token",{
       method: "POST",
-      body: JSON.stringify({"code":code})
+      headers:header,
+      body: urlencoded
     })
 
-    let response = await req.json()
-
-    if(!response.ok){
-      throw new Error(`token retrieval failed!\n${response.text}`)
+    if(!req.ok){
+      throw new Error(`token retrieval failed!\n${req.statusText}`)
     }
 
-    localStorage.setItem("UID",response.uid)
-    localStorage.setItem("accessToken",response.accessToken)
-    localStorage.setItem("refreshToken",response.refreshToken)
+    let tokenResponse = await req.json();
+    console.log(tokenResponse)
+    let id = await getIdentity(tokenResponse.accessToken)
+    localStorage.setItem("UID",id.uid)
+    localStorage.setItem("accessToken",tokenResponse.access_token)
+    localStorage.setItem("refreshToken",tokenResponse.refresh_token)
+    setSignedIn(true)
+
+  }
+
+  async function getIdentity(accessToken: any){
+    let req = await fetch("https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/userInfo",{
+      method:"GET",
+      headers:{
+        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+      },
+      redirect:"follow"
+    })
+
+    if(!req.ok){
+      throw new Error(`identity retrieval failed!\n${req.statusText}`)
+    }
+
+    let response = await req.json();
+
+    return response
   }
 
     return(

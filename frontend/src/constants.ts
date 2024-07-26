@@ -18,6 +18,6 @@ export type catobj ={
 
 export const authConstants = { 
     respType:"code",
-    client_id:"m19g69r0847adtpadms8vpje5",
+    client_id:"17i7qe5cblcvb30o2un14g96md",
     redirecturi:"http://localhost:3000"
 }
