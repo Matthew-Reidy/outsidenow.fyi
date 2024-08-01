@@ -56,7 +56,8 @@ export default function CreateEvent() {
         fetch(`${BASE_URL}`,{
           method:"POST",
           headers:{
-            "content-type":"application/json"
+            "content-type":"application/json",
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
           },
           body:JSON.stringify(payload)
         })

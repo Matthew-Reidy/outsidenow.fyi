@@ -4,7 +4,7 @@ from dbqueries import backendActions
 from botocore.exceptions import ClientError
 
 def lambda_handler(event, context):
-    
+    print(context)
     dbSecrets = get_secret()
     if event["httpMethod"] == "GET":
         if event["path"] == "/getevents":
@@ -21,12 +21,16 @@ def lambda_handler(event, context):
             return response_body(200, events)
         
     if event["httpMethod"] == "POST" or event["httpMethod"] == "PUT"  :
-        pass
+        if event['path'] == "/insertEvent":
+            pass
+        
     
+    return response_body(200, "hello world!")
 
 def response_body(statusCode, body):
     return {
         'statusCode': statusCode,
+         "headers": {"Access-Control-Allow-Origin":"*"},
         'body': json.dumps(body)
     }
 

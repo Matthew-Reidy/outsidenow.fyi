@@ -1,6 +1,6 @@
 import json
 import psycopg2.pool as pgpool
-
+from botocore.exceptions import ClientError
 import boto3
 
 def lambda_handler(event, context):
@@ -21,8 +21,6 @@ def enrollUser(event: dict, secret: dict) -> None:
 
     cursor.execute("INSERT INTO users( username, email ) VALUES (%s, %s)", (event["userName"], event["request"]["userAttributes"]["email"]))
 
-
-
     conn.commit()
 
     cursor.close()
@@ -30,7 +28,7 @@ def enrollUser(event: dict, secret: dict) -> None:
     pool.putconn(conn)
 
 
-def createPool(dbSecrets: dict) -> SimpleConnectionPool:
+def createPool(dbSecrets: dict):
    return pgpool.SimpleConnectionPool(
                                 minconn= 1,
                                 maxconn= 5,

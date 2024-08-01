@@ -122,7 +122,7 @@ class backendActions(dbqueries):
 
             for image in self.eventBody[""]:
 
-                self.__client.put_object(Bucket="outsidenow-assets", Key=f"{eventid}/{image["name"]}", Body=image["body"])
+                self.__client.put_object(Bucket="outsidenow-assets", Key=f'{eventid}/{image["name"]}', Body=image["body"])
                 
 
         except Exception as e:
@@ -150,3 +150,6 @@ class backendActions(dbqueries):
             case "/getcitiesandcatergories":
 
                 return dbqueries.getCitiesAndCatergories(self)
+            case "/insertEvent":
+                
+                return dbqueries.insertEvent(self)

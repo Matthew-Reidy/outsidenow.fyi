@@ -12,7 +12,6 @@ export function Signin(){
         if (!localStorage.getItem("UID") && !localStorage.getItem("accessToken") && !localStorage.getItem("refreshToken")){
             identityRoutine()
             
-            
         }else{
             setSignedIn(true)
         }
@@ -41,10 +40,9 @@ export function Signin(){
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "authorization_code");
-    urlencoded.append("client_id", "m19g69r0847adtpadms8vpje5");
+    urlencoded.append("client_id", "17i7qe5cblcvb30o2un14g96md");
     urlencoded.append("code", code);
     urlencoded.append("redirect_uri", "http://localhost:3000");
-    urlencoded.append("client_secret", "1vk8l6islhu8cpbao4ojr138pj6rf3e6h2gire3tlcbnpoood1mm");
 
     let req = await fetch("https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/token",{
       method: "POST",
@@ -53,20 +51,25 @@ export function Signin(){
     })
 
     if(!req.ok){
-      throw new Error(`token retrieval failed!\n${req.statusText}`)
+      throw new Error(`token retrieval failed!\n${req.status} ${req.statusText}`)
     }
-
+    
     let tokenResponse = await req.json();
     console.log(tokenResponse)
-    let id = await getIdentity(tokenResponse.accessToken)
-    localStorage.setItem("UID",id.uid)
+
     localStorage.setItem("accessToken",tokenResponse.access_token)
+
     localStorage.setItem("refreshToken",tokenResponse.refresh_token)
+
+    let id = await getIdentity()
+
+    localStorage.setItem("UID",id.username)
+
     setSignedIn(true)
 
   }
 
-  async function getIdentity(accessToken: any){
+  async function getIdentity(){
     let req = await fetch("https://outsidenow.auth.us-west-1.amazoncognito.com/oauth2/userInfo",{
       method:"GET",
       headers:{
@@ -76,11 +79,10 @@ export function Signin(){
     })
 
     if(!req.ok){
-      throw new Error(`identity retrieval failed!\n${req.statusText}`)
+      throw new Error(`identity retrieval failed!\n${req.status} ${req.statusText}`)
     }
 
     let response = await req.json();
-
     return response
   }
 
