@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { authConstants } from '../constants'
+import { authConstants } from '../../constants'
 import { useState, useEffect } from 'react';
 
 export function Signin(){

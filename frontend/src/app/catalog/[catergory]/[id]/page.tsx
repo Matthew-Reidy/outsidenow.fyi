@@ -10,7 +10,7 @@ async function getEventByID(id: number){
   return data
 }
 
-export default async function comedyPage({params}:any){
+export default async function EventPage({params}:any){
   var {address, locname,  state_name } = await getEventByID(params.id)
   
   return(
