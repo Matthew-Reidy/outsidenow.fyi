@@ -42,15 +42,15 @@ export default async function event({params} :any) {
 
 function EventPage({prop}:any){
   const {eventid, address, locname, state_name, eventtitle, startdate, images, catergory} = prop
-  
+  const eventDate = new Date(startdate)
   return(
     <div className="border-4 rounded-lg p-4 hover:bg-blue-200">
       <Link href={`/catalog/${catergory}/${eventid}`}>
           <li>
               <img className="rounded" src='https://outsidenow-assets.s3.us-west-1.amazonaws.com/event-assets/3/football.jpg' alt='event images' height={1000} width={500}></img>
               <h1 className=' pt-5'>{eventtitle}</h1>
-              <p className='pt-5'>{`${address} ${locname} ${state_name}`}</p>
-              <p>{startdate}</p>
+              <p className='pt-5'>{`${address}, ${locname}, ${state_name}`}</p>
+              <p>{ eventDate.toLocaleDateString('en-US', {weekday: 'long',year: 'numeric', month: 'long',day: 'numeric'})} at {eventDate.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit",  timeZoneName: "short" , timeZone: "America/Los_Angeles"})}</p>
           </li>
       </Link>
       <div className="flex">

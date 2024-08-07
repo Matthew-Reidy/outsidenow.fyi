@@ -64,6 +64,7 @@ export function Signin(){
     let id = await getIdentity()
 
     localStorage.setItem("UID",id.username)
+    localStorage.setItem("email", id.email)
 
     setSignedIn(true)
 
